@@ -1,0 +1,78 @@
+\documentclass[lang=cn]{elegantpaper} % 使用 elegantpaper 模板，并指定中文
+
+% 引入一些可能需要的包
+\usepackage{amsmath} % 用于数学公式，例如 \text{}
+\usepackage{graphicx} % 用于插入图片 (尽管目前我们是占位符)
+% elegantpaper 内部通常会处理 CJK 支持，特别是指定了 lang=cn
+% 如果需要更细致的字体控制，可能需要 xeCJK 和相关字体设置，但 elegantpaper 旨在简化此过程
+% --- 页眉页脚自定义 ---
+\usepackage{fancyhdr}
+\setlength{\headheight}{22pt} % 增加页眉高度以容纳内容，防止遮挡正文
+\pagestyle{fancy}
+% \fancyhf{} % 清除现有的页眉页脚设置
+
+% 奇数页页眉：左侧期刊信息，右侧章节标题
+\fancyhead[LO]{《魔法学报》魔法纪元 512 年 第 1 期}
+\fancyhead[RO]{\nouppercase{\leftmark}}
+
+% 偶数页页眉：左侧小节标题，右侧期刊信息
+\fancyhead[LE]{\nouppercase{\rightmark}}
+\fancyhead[RE]{《魔法学报》魔法纪元 512 年 第 1 期}
+
+% 页脚：外侧页码
+% \fancyfoot[RO,LE]{\thepage}
+
+% % 页眉下划线宽度
+% \renewcommand{\headrulewidth}{0.4pt}
+% % 页脚无下划线 (明确设置)
+% \renewcommand{\footrulewidth}{0pt}
+% --- 结束页眉页脚自定义 ---
+
+% Biblatex configuration for elegantpaper
+% backend=biber is generally recommended with elegantpaper
+% style=gb7714-2015 a common Chinese citation style, or use elegantpaper's default if available
+% For simplicity, let's try a standard one first, elegantpaper might override or have its own.
+% \usepackage[backend=biber, style=numeric, sorting=none]{biblatex} % elegantpaper likely loads this already
+\addbibresource{references.bib} % Specify the .bib file
+
+% --- 文档信息 ---
+% 从单独的文件中导入标题、作者和机构信息
+\input{chapters/00_title_author.tex}
+
+\begin{document}
+
+% --- 封面、摘要、关键词 ---
+\maketitle % 生成封面页
+
+% 摘要环境已在 chapters/01_abstract.tex 中定义
+\input{chapters/01_abstract.tex}
+
+% 关键词环境已在 chapters/02_keywords.tex 中定义
+\input{chapters/02_keywords.tex}
+
+% --- 目录 ---
+\tableofcontents
+\cleardoublepage % 确保正文从奇数页开始
+
+% --- 正文章节 ---
+\input{chapters/03_introduction.tex}
+\input{chapters/04_materials_and_methods.tex}
+\input{chapters/05_results.tex}
+\input{chapters/06_discussion.tex}
+\input{chapters/07_conclusion.tex}
+
+% --- 致谢 ---
+% \cleardoublepage % 可选，根据排版需求决定是否新开一页
+\input{chapters/08_acknowledgements.tex}
+
+% --- 参考文献 ---
+% \cleardoublepage % 可选
+% \input{chapters/09_references.tex} % Replaced by biblatex
+
+% --- 附录 ---
+% \cleardoublepage % 可选
+\input{chapters/10_appendix.tex}
+
+\printbibliography % Print the bibliography
+
+\end{document}
